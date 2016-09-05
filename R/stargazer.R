@@ -17,7 +17,7 @@ function(..., type = "latex", title="", style="default", summary=NULL, out=NULL,
          rq.se = "nid", selection.equation=FALSE, single.row=FALSE, star.char=NULL, 
          star.cutoffs=NULL, suppress.errors=FALSE, table.layout=NULL, table.placement = "!htbp", zero.component=FALSE, 
          summary.logical=TRUE, summary.stat=NULL, nobs=TRUE, mean.sd=TRUE, min.max=TRUE, median=FALSE, 
-         iqr=FALSE) {
+         iqr=FALSE, use.bookdown=TRUE) {
   
   save.warn.option <- getOption("warn") 
   options(warn=-1)

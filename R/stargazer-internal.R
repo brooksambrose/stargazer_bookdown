@@ -18,7 +18,7 @@ function(libname, pkgname) {
            omit.yes.no, order, ord.intercepts, perl, report, rownames,
            rq.se, selection.equation, single.row, star.char, star.cutoffs, suppress.errors, 
            table.layout, table.placement, 
-           zero.component, summary.logical, summary.stat, nobs, mean.sd, min.max, median, iqr, warn) {
+           zero.component, summary.logical, summary.stat, nobs, mean.sd, min.max, median, iqr, warn, use.bookdown) {
      
   .add.model <-
   function(object.name, user.coef=NULL, user.se=NULL, user.t=NULL, user.p=NULL, auto.t=TRUE, auto.p=TRUE, user.ci.lb=NULL, user.ci.rb=NULL) {
@@ -3915,10 +3915,18 @@ function(libname, pkgname) {
   .floating.header <-
     function() {
       if (.format.floating==TRUE) {
-        cat("\\begin{", .format.floating.environment,"}[", .format.table.placement,"] \\centering \n",sep="")
-        cat("  \\caption{", .format.title, "} \n",sep="")   
-        cat("  \\label{", .format.label, "} \n",sep="")
-        .set.font.size()
+      	if (use.bookdown == TRUE) {
+	        cat("\\begin{", .format.floating.environment,"}[", .format.table.placement,"] \\centering \n",sep="")
+	        cat("  \\caption{", .format.title, "} \n",sep="")   
+	        cat("  \\label{tab:", .format.label, "} \n",sep="")
+	        .set.font.size()
+    	}
+    	else {
+	        cat("\\begin{", .format.floating.environment,"}[", .format.table.placement,"] \\centering \n",sep="")
+	        cat("  \\caption{", .format.title, "} \n",sep="")   
+	        cat("  \\label{", .format.label, "} \n",sep="")
+	        .set.font.size()
+    	}
       }
       else if (!is.null(.format.font.size)) { # set font size using begingroup
         cat("\\begingroup \n", sep="")
@@ -5332,7 +5340,14 @@ function(libname, pkgname) {
           else if (strpos("\\caption{", line) != -1) {
             inside.caption <- substr(.trim(line), 10, nchar(.trim(line))-1)
             text.title <- .trim(.remove.control.sequences(inside.caption, type="html"))
-            if (text.title != "") { cat("<caption><strong>",.remove.control.sequences(inside.caption, type="html"),"</strong></caption>\n", sep="") }
+            if (text.title != "") { 
+            	if (use.bookdown == TRUE) {
+            		cat("<caption>", "(\\#tab:", label, ")", "<strong>",.remove.control.sequences(inside.caption, type="html"),"</strong></caption>\n", sep="") 
+            	}
+            	else {
+            		cat("<caption><strong>",.remove.control.sequences(inside.caption, type="html"),"</strong></caption>\n", sep="") 
+            	}
+            }
           }
           else if (strpos("\\cline{", line) != -1) {
             s <- paste("  ", line, "  ", sep="")
