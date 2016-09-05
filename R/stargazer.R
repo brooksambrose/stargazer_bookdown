@@ -54,5 +54,5 @@ function(..., type = "latex", title="", style="default", summary=NULL, out=NULL,
                          summary.logical = summary.logical,
                          summary.stat = summary.stat,
                          nobs=nobs, mean.sd=mean.sd, 
-                         min.max=min.max, median=median, iqr=iqr, warn=save.warn.option))
+                         min.max=min.max, median=median, iqr=iqr, warn=save.warn.option, use.bookdown=use.bookdown))
 }
