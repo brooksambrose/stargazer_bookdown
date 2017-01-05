@@ -1,4 +1,4 @@
-Package: stargazer
+Package: stargazer_bookdown
 Type: Package
 Title: Well-Formatted Regression and Summary Statistics Tables
 Version: 5.2
